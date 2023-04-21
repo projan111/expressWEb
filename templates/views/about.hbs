@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> headerLinks}}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 100% !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about_main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 150px;
+        }
+
+        .about_content {}
+
+        .img_content img {
+            height: 300px;
+            width: 300px;
+            margin-right: 100px;
+        }
+
+        .navlinks {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .colors {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    {{>navbar}}
+
+    <div class="about_main">
+        <div class="img_content">
+            <img src="bus.avif" alt="" />
+        </div>
+        <div class="about_content">
+            <h1>About Me</h1>
+            <p>This is all about me and weather checking purpose</p>
+            <a href="http://www.facebook.com" target="_fb"><button class="btn btn-warning">Read More</button></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

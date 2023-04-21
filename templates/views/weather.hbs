@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> headerLinks}}
+    <style>
+        .main {
+            width: 100% !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            object-position: center;
+            height: 100%;
+            padding: 20px;
+            margin-top: -100px;
+            border-radius: 10px;
+        }
+
+        .carousel-item {
+            margin-top: 200px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main_header_right {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navlinks {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .colors {
+            color: green;
+        }
+        #cityName {
+            background-color: #252525;
+            position: relative;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .relative{
+            position: relative;
+            width: 500px;
+        }
+        .absolute{
+            position: absolute;
+            left: 930px;
+        }
+        #searchBox{
+            position: absolute;
+            top: 106px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background-color: green;
+            color: white;
+        }
+        .content-box{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .tempInfo{
+            background-color: #313131;
+            color: white;
+            width: 400px;
+            border-radius: 20px;
+        }
+        .days{
+            display: flex;
+            justify-content: space-between;
+            background-color: #222222;
+            align-items: center;
+            padding: 15px;
+            border-radius: 20px 20px 0 0;
+        }
+        .main_layer{
+            padding: 15px;
+        }
+        .middle_layer{
+            display: flex;
+            justify-content: space-around;
+            font-size: 52px;
+        }
+        #temp{
+            font-weight: 600;
+        }
+        .data_hide{
+            visibility: hidden;
+            transition: all 0.3s linear;
+        }
+    </style>
+</head>
+<div>
+    {{> navbar}}
+    <!-- Hero section  -->
+    <div class="container-fluid main my-5" style="height:95vh;">
+        <div class="row">
+            <div class="col-md-10 col-12 mx-auto content-box">
+                <div class="main_content">
+                    <form>
+                        <input class="relative" type="text" id="cityName" placeholder="Enter your city name" autocomplete="off">
+                        <button class="absolute" id="searchBox">Search</button>
+                    </form>
+                </div>
+                <div class="tempInfo my-5">
+                    <div class="days">
+                        <p id="day">Friday</p>
+                        <p id="today-date">13 OCT</p>
+                    </div>
+                    <div class="main_layer">
+                        <p class="city_name">Get Result</p>
+                        <div class="middle_layer data_hide">
+                            <p id="temp"><span>0</span><sup>o</sup>C</p>
+                            <p id="temp_status"> <i class="fa fa-cloud"></i> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>This Website is created by L</p>
+    </footer>
+
+    {{!-- <script src="../../public/js/index.js"></script> --}}
+    <script>
+    const searchBox = document.getElementById("searchBox");
+    const cityName = document.getElementById("cityName");
+    const city_name = document.getElementById("city_name");
+    const temp_status = document.getElementById("temp_status");
+    const temp = document.getElementById("temp");
+
+    const getResult = async(event) => {
+        event.preventDefault()
+        let cityVal = cityName.value
+        if(cityVal === ''){
+            city_name.innerText = "Please write the name before search"
+        }else{
+            try{
+                let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityVal}&units=metric&appid=fe80663f3bd9d3270f61e1b60efc56f5`
+                const response = await fetch(url)
+                const data = await response.json()
+                const arrData = [data]
+
+                city_name.innerText = `${arrData[0].name}, ${arrData[0].sys.country}`
+                temp.innerText = arrData[0].main.temp
+                temp_status.innerText = arrData[0].weather[0].main
+            }catch{
+                city_name.innerText = "Please enter the city name properly"
+            }
+        }
+    }
+    searchBox.addEventListener('click', getResult)
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous">
+    </script>
+
+    </body>
+
+</html>
